@@ -13,7 +13,7 @@ function CA() {
     //board for the decoded matrix
     this.decoded = new Array(this.cols);
 
-    // Going to use multiple 2D arrays and swap them
+
 
     for (var i = 0; i < this.cols; i++) {
         this.board[i] = new Array(this.rows);
@@ -34,6 +34,7 @@ function CA() {
     }
 
     // The process of creating the new generation
+    //code adapted from https://github.com/nature-of-code/noc-examples-p5.js/tree/master/chp07_CA/NOC_7_02_GameOfLifeSimple
     this.generate = function () {
 
         var next = new Array(this.cols);

@@ -106,11 +106,6 @@ function reset() {
 
     ca.board = ca.userBoard.slice();
     ca.display();
-
-/*	decodeMatrix.clear();
-    for (var i = 0; i < 16; i++) {
-        decode(i);
-    }*/
     outlet(0, "jit_matrix", mymatrix.name);
     outlet(1, "jit_matrix", decodeMatrix.name);
 }
@@ -131,7 +126,7 @@ for (var i = 0; i < width; i++) {
     counter[i] = 0;
 }
 
-//https://medium.com/@raviinit/hold-on-a-second-sleep-wait-or-delay-functionality-using-javascript-8521c7cecf0e
+
 function resetCounter() {
 
     for (var i = 0; i < width; i++) {
@@ -143,6 +138,8 @@ function resetCounter() {
 
 var tsk = new Task(resetCounter, this);
 
+
+// code adapted from Cycling 74 forum post: https://cycling74.com/forums/little-cellular-automata-sequencer
 function decode(voiceNumber) {
 
 
