@@ -21,11 +21,11 @@ var CALib = require('CALib');
 // Game of life
 
 //pours out all the data from this.board into mymatrix for display
-CALib.CA.prototype.display = function () {
+function display(ca){
 
-    for (var i = 0; i < this.cols; i++) {
-        for (var j = 0; j < this.rows; j++) {
-            if (this.board[i][j] === 1) {
+    for (var i = 0; i < ca.cols; i++) {
+        for (var j = 0; j < ca.rows; j++) {
+            if (ca.getCell(i, j) === 1) {
 
                 mymatrix.setcell2d(i, j, 255, 0, 0);
 
@@ -43,7 +43,7 @@ CALib.CA.prototype.display = function () {
     }
 
 
-};
+}
 
 // Initialize CA
 var ca = new CALib.CA();
@@ -80,7 +80,7 @@ function draw() {
     }
   	
 
-	ca.display();
+	display(ca);
 	ca.generate();
     outputMatrix.clear();
     
@@ -104,8 +104,8 @@ function clear() {
 
 function reset() {
 
-    ca.board = ca.userBoard.slice();
-    ca.display();
+    ca.swapBoard();
+    display(ca);
     outlet(0, "jit_matrix", mymatrix.name);
     outlet(1, "jit_matrix", decodeMatrix.name);
 }
@@ -146,7 +146,7 @@ function decode(voiceNumber) {
     for (var x = 0; x < ca.cols; x++) {
         for (var y = 0; y < ca.rows; y++) {
 
-            if (ca.board[x][y] === 1) {
+            if (ca.getCell(x,y) === 1) {
 
 
                 var a = x % wrapX;
@@ -167,7 +167,7 @@ function decode(voiceNumber) {
                     //set this in reference to phasor freq
                     tsk.schedule(delay);
                     if (counter[y] === 0) {
-                        ca.decoded[x][y] = 1;
+                        ca.setDecodedCell(x, y, 1);
                         decodeMatrix.setcell2d(x, y, 255);
 
                     }
@@ -177,7 +177,7 @@ function decode(voiceNumber) {
 
 
             } else {
-                ca.decoded[x][y] = 0;
+                ca.setDecodedCell(x, y, 0);
             }
 
         }
@@ -193,13 +193,21 @@ var y = 0;
 function interpret() {
 
 
+
+
+
     for (var x = 0; x < width; x++) {
         for (var y = 0; y < height; y++) {
 
-            if (ca.decoded[x][y] === 1) {
+            var decodedCell = ca.getDecodedCell(x,y);
+            if (decodedCell === 1) {
                 //discard the x value. we just want to know whether a given row contains a living cell
                 outputMatrix.setcell2d(0, y, 255);
 
+            }
+            else if (decodedCell === -1){
+                post("index does not exist");
+                post();
             }
 
 

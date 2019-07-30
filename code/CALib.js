@@ -13,8 +13,6 @@ function CA() {
     //board for the decoded matrix
     this.decoded = new Array(this.cols);
 
-
-
     for (var i = 0; i < this.cols; i++) {
         this.board[i] = new Array(this.rows);
         this.userBoard[i] = new Array(this.rows);
@@ -89,6 +87,14 @@ function CA() {
         }
     };
 
+    this.swapBoard = function () {
+
+        this.board = this.userBoard.slice();
+    };
+
+
+
+
     this.setCell = function (x, y, a) {
 
         this.board[x][y] = a;
@@ -98,7 +104,24 @@ function CA() {
     this.getCell = function (x, y) {
 
         return this.board[x][y];
-    }
+    };
+
+
+
+    this.setDecodedCell= function (x, y, a) {
+
+        this.decoded[x][y]= a;
+    };
+
+    this.getDecodedCell= function (x,y) {
+        //first check whether the x,y address has a value at all
+
+        if(x >= 0 && x < this.decoded.length && y >= 0 && y < this.decoded[x].length) {
+            return this.decoded[x][y];
+        }
+        return -1;
+
+    };
 
 
     this.setUserCell = function (x, y, a) {
