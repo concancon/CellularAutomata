@@ -114,6 +114,32 @@ var ca = new CALib.CA();
 
 /////////////////////////////////////////////////////////////////////////////
 
+/**
+ * reads cell values from storage and writes them to current instance of a ca object
+ * @function
+ * @name jit_matrix
+ *
+ **/
+
+function jit_matrix() {
+
+post("hey im called ");
+post();
+    for (var i = 0; i < 16; i++) {
+
+        for (var j = 0; j < 16; j++) {
+
+            ca.setUserCell(i, j, (mymatrix.getcell(i, j) / 255));
+            ca.setCell(i, j, (mymatrix.getcell(i, j) / 255));
+
+        }
+
+
+    }
+
+    outlet(0, "jit_matrix", mymatrix.name);
+
+}
 
 /**
  * per iteration reads cell values from ca object and writes them to ui objects; applies GOL rules; applies decoding scheme
