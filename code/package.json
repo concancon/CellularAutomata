@@ -4,11 +4,11 @@
   "description": "testing CA rules and input output",
   "main": "CALib.js",
   "scripts": {
-  "test": "mocha"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mocha": "^6.1.4"
+    "mocha": "^6.2.0"
   }
 }
